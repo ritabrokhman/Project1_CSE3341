@@ -26,7 +26,7 @@ class Scanner {
             // Read the first token
             nextToken();
         } catch (IOException e) {
-            System.out.println("ERROR: Unable to open file." + filename);
+            System.out.println("ERROR: Unable to open file" + filename);
             currentToken = Core.ERROR;
         }
     }
