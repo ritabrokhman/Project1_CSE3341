@@ -11,6 +11,7 @@ class Scanner {
     private String currentId;
     private int currentConst;
     private String currentString;
+    // There is a finite amount of keywords in the Core language, so we need to initialize it as a HashSet
     private static final Set<String> keywords = new HashSet<>(Arrays.asList(
         "and", "begin", "case", "do", "else", "end", "for", "if", "in", "integer",
         "is", "new", "not", "object", "or", "print", "procedure", "read", "return", "then"
@@ -22,9 +23,10 @@ class Scanner {
             reader = new BufferedReader(new FileReader(filename));
             index = 0;
             line = reader.readLine();
-            nextToken();  // Read the first token
+            // Read the first token
+            nextToken();
         } catch (IOException e) {
-            System.out.println("ERROR: Unable to open file " + filename);
+            System.out.println("ERROR: Unable to open file." + filename);
             currentToken = Core.ERROR;
         }
     }
@@ -68,7 +70,7 @@ class Scanner {
 
         StringBuilder sb = new StringBuilder();
 
-        // Append letters from 'line' to 'sb' until a non-letter is found.
+        // Append letters from 'line' to 'sb' until a non-letter is found
         while (index < line.length() && (Character.isLetterOrDigit(line.charAt(index)))) {
             sb.append(line.charAt(index++));
         }
@@ -89,7 +91,7 @@ class Scanner {
 
         StringBuilder sb = new StringBuilder();
 
-        // Append numbers from 'line' to 'sb' until a non-number is found.
+        // Append numbers from 'line' to 'sb' until a non-number is found
         while (index < line.length() && Character.isDigit(line.charAt(index))) {
             sb.append(line.charAt(index++));
         }
@@ -105,6 +107,7 @@ class Scanner {
                 currentToken = Core.CONST;
             }
         } catch (NumberFormatException e) {
+            // If the number does not fit the Core format, print an error
             System.out.println("ERROR: Invalid constant format");
             currentToken = Core.ERROR;
         }
@@ -141,7 +144,7 @@ class Scanner {
         case '*': currentToken = Core.MULTIPLY; break;
         case '/': currentToken = Core.DIVIDE; break;
 
-        // Handle "==" and "=""
+        // Handle "==" and "=" by distinguihing between assignment and equality
         case '=':
             if (peek() == '=') { index++; currentToken = Core.EQUAL; }
             else currentToken = Core.ASSIGN;
@@ -172,7 +175,7 @@ class Scanner {
         return currentToken;
     }
 
-	// Return the identifier string
+	// Return the identifier String
     public String getId() {
         return currentId;
     }
@@ -182,12 +185,13 @@ class Scanner {
         return currentConst;
     }
 	
-	// Return the character string
+	// Return the character String
     public String getString() {
         return currentString;
     }
 
     // Peeks at the next character without consuming it
+    // Used mainly to distinguish between "=" and "=="
     private char peek() {
         return (index + 1 < line.length()) ? line.charAt(index + 1) : '\0';
     }
