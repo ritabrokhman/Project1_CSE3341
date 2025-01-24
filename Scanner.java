@@ -1,6 +1,11 @@
 import java.io.*;
 import java.util.*;
 
+/* Rita Brokhman
+ * CSE 3341 SP25
+ * Tim Carpenter
+ * MWF 12:40 - 1:35 */
+
 class Scanner {
 
     // Initialize the constants and the keywords in the language
@@ -26,6 +31,7 @@ class Scanner {
             // Read the first token
             nextToken();
         } catch (IOException e) {
+            // If file is unable to open, print an error
             System.out.println("ERROR: Unable to open file" + filename);
             currentToken = Core.ERROR;
         }
