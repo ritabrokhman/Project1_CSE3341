@@ -150,7 +150,7 @@ class Scanner {
         case '*': currentToken = Core.MULTIPLY; break;
         case '/': currentToken = Core.DIVIDE; break;
 
-        // Handle "==" and "=" by distinguihing between assignment and equality
+        // Handle "==" and "=" by distinguishing between assignment and equality
         case '=':
             if (peek() == '=') { index++; currentToken = Core.EQUAL; }
             else currentToken = Core.ASSIGN;
